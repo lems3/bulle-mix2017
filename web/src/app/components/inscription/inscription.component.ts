@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-inscription',
@@ -13,9 +14,27 @@ export class InscriptionComponent implements OnInit {
   password_confirm: string;
   password_message: string;
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   ngOnInit() {
+  }
+
+  submit(){
+    if( this.password != this.password_confirm )
+      this.password_message = "Notre mot de passe est différent"
+    else{
+      this.http.post(
+        '',
+        {}
+      )
+      .toPromise()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
   }
 
 }

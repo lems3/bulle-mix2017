@@ -45,11 +45,7 @@ resources:
       Properties:
         TableName: bulle-user
         AttributeDefinitions:
-          - AttributeName: name
-            AttributeType: S
           - AttributeName: email
-            AttributeType: S
-          - AttributeName: password
             AttributeType: S
         KeySchema:
           - AttributeName: email
