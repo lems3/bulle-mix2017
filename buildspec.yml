@@ -1,0 +1,19 @@
+version: 0.2
+            
+phases:
+  install:
+    commands:
+      - cd web
+      - npm install
+      - cd ../api
+      - npm install
+  pre_build:
+    commands:
+      - cd web
+      - ng build
+  build:
+    commands:
+      - cd web
+      - npm run deploy
+      - cd ../api
+      - npm run deploy
