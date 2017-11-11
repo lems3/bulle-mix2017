@@ -9,5 +9,6 @@ phases:
       - aws s3 sync --delete "./dist" "s3://fabbulle" --cache-control max-age=86400 --exclude "*.html"
       - aws s3 sync --delete "./dist" "s3://fabbulle" --cache-control no-cache --exclude "*" --include "*.html"
       - cd ../api
+      - npm install -g serverless
       - npm install
       - serverless deploy
