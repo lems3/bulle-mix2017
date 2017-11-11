@@ -29,3 +29,10 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    memorySize: 128
+    timeout: 30
+    events:
+    - http:
+        path: graph
+        method: post
+        cors: true
