@@ -14,6 +14,7 @@ phases:
   build:
     commands:
       - cd web
-      - npm run deploy
+      - aws s3 sync --delete "./dist" "s3://fabbulle" --cache-control max-age=86400 --exclude "*.html"
+      - aws s3 sync --delete "./dist" "s3://fabbulle" --cache-control no-cache --exclude "*" --include "*.html"
       - cd ../api
-      - npm run deploy
+      - serverless deploy
