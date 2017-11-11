@@ -7,10 +7,12 @@ phases:
       - npm install
       - cd ../api
       - npm install
+      - cd ..
   pre_build:
     commands:
       - cd web
       - ng build
+      - cd ..
   build:
     commands:
       - cd web
