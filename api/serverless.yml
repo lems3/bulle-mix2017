@@ -33,6 +33,6 @@ functions:
     timeout: 30
     events:
     - http:
-        path: graph
-        method: post
+        path: hello
+        method: get
         cors: true
