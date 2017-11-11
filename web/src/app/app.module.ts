@@ -1,3 +1,4 @@
+import { UserService } from './services/user/user.service';
 import { routing } from './modules/app-router/app-router.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -22,7 +23,9 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
     HttpModule,
     routing
   ],
-  providers: [],
+  providers: [
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

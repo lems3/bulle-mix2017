@@ -1,0 +1,44 @@
+import { Http } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable()
+export class UserService {
+
+  private _currentUser = new BehaviorSubject<any>(null);
+  currentUser = this._currentUser.asObservable();
+
+  constructor(
+    private http: Http
+  ) { 
+    
+  }
+
+  register(name: string, email: string, password: string){
+    return new Promise((resolve,reject) => {
+      this.http.post(
+        'https://2q6hctzngk.execute-api.us-east-1.amazonaws.com/prod/inscription',
+        {
+          name:name,
+          email:email,
+          password:password
+        }
+      )
+      .toPromise()
+      .then((result) => {
+        let user = result.json();
+        this._currentUser.next({
+          name:user.name,
+          email:user.email,
+          password:user.password
+        })
+        resolve(user);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      })
+    });
+  }
+
+}
