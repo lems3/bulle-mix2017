@@ -26,7 +26,7 @@ module.exports.inscription = (event, context, callback) => {
     },
   };
 
-  dynamo.putItem(params,(error, data) => {
+  dynamo.put(params,(error, data) => {
     if(error){
       console.log(error);
       callback(null,response(200,{status:'error',message:'error creating user'}))
