@@ -1,22 +1,13 @@
 version: 0.2
             
 phases:
-  install:
-    commands:
-      - cd web
-      - npm install
-      - cd ../api
-      - npm install
-      - cd ..
-  pre_build:
-    commands:
-      - cd web
-      - npm run build
-      - cd ..
   build:
     commands:
       - cd web
+      - npm install
+      - npm run build
       - aws s3 sync --delete "./dist" "s3://fabbulle" --cache-control max-age=86400 --exclude "*.html"
       - aws s3 sync --delete "./dist" "s3://fabbulle" --cache-control no-cache --exclude "*" --include "*.html"
       - cd ../api
+      - npm install
       - serverless deploy
