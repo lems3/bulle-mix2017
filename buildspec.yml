@@ -11,7 +11,7 @@ phases:
   pre_build:
     commands:
       - cd web
-      - ng build
+      - npm run build
       - cd ..
   build:
     commands:
