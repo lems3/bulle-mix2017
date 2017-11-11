@@ -1,7 +1,7 @@
 'use strict';
 
 function response(statusCode,body){
-  callback(null,{
+  return {
     statusCode: statusCode,
     headers: {
       "Access-Control-Allow-Origin":"*",
@@ -9,7 +9,7 @@ function response(statusCode,body){
       "Access-Control-Allow-Headers":"X-Requested-With,content-type, orderType, culture"
     },
     body: JSON.stringify(body)
-  })
+  };
 }
 
 const AWS = require('aws-sdk');  
@@ -26,8 +26,12 @@ module.exports.inscription = (event, context, callback) => {
     },
   };
 
-  if(dynamo.put(params, cb))
-    response(200,{status:'ok',message:'ok'})
-  else
-    response(200,{status:'error',message:'error creating user'})
+  dynamo.putItem(params,(error, data) => {
+    if(error){
+      console.log(error);
+      callback(null,response(200,{status:'error',message:'error creating user'}))
+    }
+    else
+      callback(null,response(200,{status:'ok',message:'ok'}))
+  })
 }

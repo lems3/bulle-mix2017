@@ -24,8 +24,12 @@ export class InscriptionComponent implements OnInit {
       this.password_message = "Notre mot de passe est différent"
     else{
       this.http.post(
-        '',
-        {}
+        'https://2q6hctzngk.execute-api.us-east-1.amazonaws.com/prod/inscription',
+        {
+          name:this.name,
+          email:this.email,
+          password:this.password
+        }
       )
       .toPromise()
       .then((result) => {
