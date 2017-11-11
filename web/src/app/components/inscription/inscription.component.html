@@ -1,0 +1,32 @@
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter">
+    <div class="field">
+      <label class="label">Prénom et nom</label>
+      <div class="control">
+        <input type="text" class="input" [(ngModel)]="name">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Courriel</label>
+      <div class="control">
+        <input type="email" class="input" [(ngModel)]="email">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Mot de passe</label>
+      <div class="control">
+        <input type="text" class="input" [(ngModel)]="password">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Confirmer votre mot de passe</label>
+      <div class="control">
+        <input type="text" class="input" [(ngModel)]="password_confirm">
+      </div>
+      <p>{{ password_message }}</p>
+    </div>
+    <div class="control">
+      <button class="button is-primary">M'inscrire</button>
+    </div>
+  </div>
+</div>

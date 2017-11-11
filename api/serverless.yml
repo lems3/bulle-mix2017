@@ -28,11 +28,47 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.inscription
     memorySize: 128
     timeout: 30
     events:
     - http:
-        path: hello
-        method: get
+        path: inscription
+        method: post
         cors: true
+
+
+resources:  
+  Resources:
+    DynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: bulle-user
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+          - AttributeName: password
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    DynamoDBIamPolicy:
+      Type: AWS::IAM::Policy
+      DependsOn: DynamoDbTable
+      Properties:
+        PolicyName: lambda-dynamodb
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+              Resource: arn:aws:dynamodb:*:*:table/bulle-user
+        Roles:
+          - Ref: IamRoleLambdaExecution

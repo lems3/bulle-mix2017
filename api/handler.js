@@ -1,16 +1,33 @@
 'use strict';
 
-module.exports.hello = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
+function response(statusCode,body){
+  callback(null,{
+    statusCode: statusCode,
+    headers: {
+      "Access-Control-Allow-Origin":"*",
+      "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Headers":"X-Requested-With,content-type, orderType, culture"
+    },
+    body: JSON.stringify(body)
+  })
+}
+
+const AWS = require('aws-sdk');  
+const dynamo = new AWS.DynamoDB.DocumentClient();
+
+module.exports.inscription = (event, context, callback) => {
+  let body = JSON.parse(event.body);
+  const params = {
+    TableName: 'bulle-user',
+    Item: {
+      name:body.name,
+      email:body.email,
+      password:body.password
+    },
   };
 
-  callback(null, response);
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
-};
+  if(dynamo.put(params, cb))
+    response(200,{status:'ok',message:'ok'})
+  else
+    response(200,{status:'error',message:'error creating user'})
+}
