@@ -12,9 +12,7 @@ export class UserService {
 
   constructor(
     private http: Http
-  ) { 
-    
-  }
+  ) { }
 
   login(email:string,password:string):Promise<User|any>{
     return new Promise((resolve,reject)=>{
@@ -31,7 +29,8 @@ export class UserService {
         this._currentUser.next({
           name:user.name,
           email:user.email,
-          rank:user.rank
+          rank:user.rank,
+          bulles:user.bulles 
         })
         resolve(user);
       })
@@ -65,7 +64,8 @@ export class UserService {
         this._currentUser.next({
           name:user.name,
           email:user.email,
-          rank:user.rank
+          rank:user.rank,
+          bulles:user.bulles
         })
         resolve(user);
       })

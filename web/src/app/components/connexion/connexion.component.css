@@ -1,0 +1,11 @@
+form{
+    display: flex;
+}
+.field, .control{
+    flex: 0 1 auto;
+    padding: 0 5px;
+}
+
+.field:not(:last-child){
+    margin-bottom:0px;
+}

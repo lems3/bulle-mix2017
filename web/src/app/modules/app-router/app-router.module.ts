@@ -1,4 +1,4 @@
-import { AuthGuardService, AdminAuthGuardService, BenevoleAuthGuardService } from './../../services/auth-guard/auth-guard.service';
+import { AuthGuardService, AdminAuthGuardService, BenevoleAuthGuardService, GuestAuthGuardService } from './../../services/auth-guard/auth-guard.service';
 import { SaisieTempsComponent } from './../../components/saisie-temps/saisie-temps.component';
 import { GererUserComponent } from './../../components/gerer-user/gerer-user.component';
 import { ConfirmerTempsComponent } from './../../components/confirmer-temps/confirmer-temps.component';
@@ -10,7 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'inscription', component: InscriptionComponent },
+  { path: 'inscription', component: InscriptionComponent, canActivate: [GuestAuthGuardService]  },
   { path: 'achat', component: AchatBulleComponent, canActivate: [AuthGuardService] },
   { path: 'confirme-temps', component: ConfirmerTempsComponent, canActivate: [AdminAuthGuardService] },
   { path: 'utilisateurs', component: GererUserComponent, canActivate: [AdminAuthGuardService] },

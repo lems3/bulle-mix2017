@@ -1,4 +1,4 @@
-import { AuthGuardService, AdminAuthGuardService, BenevoleAuthGuardService } from './services/auth-guard/auth-guard.service';
+import { AuthGuardService, AdminAuthGuardService, BenevoleAuthGuardService, GuestAuthGuardService } from './services/auth-guard/auth-guard.service';
 import { UserService } from './services/user/user.service';
 import { routing } from './modules/app-router/app-router.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -38,7 +38,8 @@ import { ConfirmerTempsComponent } from './components/confirmer-temps/confirmer-
     UserService,
     AuthGuardService,
     AdminAuthGuardService,
-    BenevoleAuthGuardService
+    BenevoleAuthGuardService,
+    GuestAuthGuardService
   ],
   bootstrap: [AppComponent]
 })

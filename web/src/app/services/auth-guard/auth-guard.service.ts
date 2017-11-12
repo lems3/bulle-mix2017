@@ -10,12 +10,14 @@ export class AuthGuardService {
     private router: Router
   ) { }
 
-  canActivate() { 
-    return this.userService.currentUser.subscribe((user)=>{
-      if(user)
+  canActivate() {
+    return this.userService.currentUser.map((user)=>{
+      if(user){
+        console.log(user);
         return true;
-      else{
+      } else {
         this.router.navigate['/'];
+        console.log("pas correct");
         return false;
       }
     });
@@ -31,11 +33,13 @@ export class BenevoleAuthGuardService {
   ) { }
 
   canActivate() { 
-    return this.userService.currentUser.subscribe((user)=>{
-      if(user && (user.rank == "benevole" || user.rank == "admin"))
+    return this.userService.currentUser.map((user)=>{
+      if(user && (user.rank == "benevole" || user.rank == "admin")){
+        console.log(user);
         return true;
-      else{
+      } else {
         this.router.navigate['/'];
+        console.log("pas correct");
         return false;
       }
     });
@@ -51,11 +55,35 @@ export class AdminAuthGuardService {
   ) { }
 
   canActivate() { 
-    return this.userService.currentUser.subscribe((user)=>{
-      if(user && (user.rank == "admin"))
+    return this.userService.currentUser.map((user)=>{
+      if(user && (user.rank == "admin")){
+        console.log(user);
         return true;
-      else{
+      } else {
         this.router.navigate['/'];
+        console.log("pas correct");
+        return false;
+      }
+    });
+  }
+} 
+
+@Injectable()
+export class GuestAuthGuardService {
+
+  constructor(
+    private userService : UserService,
+    private router: Router
+  ) { }
+
+  canActivate() { 
+    return this.userService.currentUser.map((user)=>{
+      if(user == null){
+        console.log("user: "+user);
+        return true;
+      } else {
+        this.router.navigate['/'];
+        console.log("pas correct");
         return false;
       }
     });

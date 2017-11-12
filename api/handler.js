@@ -23,7 +23,8 @@ module.exports.inscription = (event, context, callback) => {
       name:body.name,
       email:body.email,
       password:body.password,
-      rank:'user'
+      rank:'user',
+      bulles:0
     },
   };
 
@@ -38,7 +39,8 @@ module.exports.inscription = (event, context, callback) => {
         AttributesToGet: [
           'name',
           'email',
-          'rank'
+          'rank',
+          'bulles'
         ],
         Key: {
           email: body.email
@@ -64,7 +66,8 @@ module.exports.connexion = (event, context, callback) => {
     AttributesToGet: [
       'name',
       'email',
-      'rank'
+      'rank',
+      'bulles'
     ],
     Key: {
       email: body.email

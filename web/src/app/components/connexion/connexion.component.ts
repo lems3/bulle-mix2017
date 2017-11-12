@@ -35,6 +35,7 @@ export class ConnexionComponent implements OnInit {
     .catch((error)=>{
       alert("Mauvais courriel ou mot de passe");
     })
+    return false;
   }
 
   logout(){

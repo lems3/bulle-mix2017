@@ -1,9 +1,29 @@
-<div *ngIf="user else loggedout">
-  <p>Bonjour {{ user!.name }}</p>
-  <button (click)="logout()">Déconnexion</button>
+<div *ngIf="user else loggedout" class="columns">
+  <div class="column">
+    <p>Bonjour {{ user.name }}
+      <button class="button is-primary" (click)="logout()">Déconnexion</button>
+    </p>
+  </div>
+  <div class="column">
+    Mes bulles : {{ user.bulles }}
+  </div>
 </div>
 <ng-template #loggedout>
-  <input type="email" placeholder="courriel" [(ngModel)]="email">
-  <input type="password" placeholder="mot de passe" [(ngModel)]="password">
-  <button (click)="login()">Connexion</button>
+  <form (submit)="login()">
+    <div class="field">
+      <div class="control">
+        <input type="email" placeholder="courriel" [(ngModel)]="email" name="email" class="input is-small">
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input type="password" placeholder="mot de passe" [(ngModel)]="password" name="password" class="input is-small">
+      </div>
+    </div>
+    <div class="control">
+      <button type="submit" 
+      [ngClass]="{'button is-primary is-small':true}"
+      >Connexion</button>
+    </div>
+  </form>
 </ng-template>
