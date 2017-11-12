@@ -45,6 +45,15 @@ functions:
         path: connexion
         method: post
         cors: true
+  achat:
+    handler: handler.achat
+    memorySize: 128
+    timeout: 30
+    events:
+    - http:
+        path: achat
+        method: post
+        cors: true
 
 
 resources:  
