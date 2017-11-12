@@ -22,7 +22,8 @@ module.exports.inscription = (event, context, callback) => {
     Item: {
       name:body.name,
       email:body.email,
-      password:body.password
+      password:body.password,
+      rank:'user'
     },
   };
 
@@ -31,7 +32,19 @@ module.exports.inscription = (event, context, callback) => {
       console.log(error);
       callback(null,response(200,{status:'error',message:'error creating user'}))
     }
-    else
+    else{
+      var params = {
+        TableName : 'bulle-user',
+        AttributesToGet: [
+          'name',
+          'email',
+          'rank'
+        ],
+        Key: {
+          email: body.email
+        }
+      };
       callback(null,response(200,{status:'ok',message:'ok'}))
+    }
   })
 }

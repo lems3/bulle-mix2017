@@ -1,11 +1,13 @@
+import { User } from './../../models/user';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+
 @Injectable()
 export class UserService {
 
-  private _currentUser = new BehaviorSubject<any>(null);
+  private _currentUser = new BehaviorSubject<User>(null);
   currentUser = this._currentUser.asObservable();
 
   constructor(
@@ -30,7 +32,7 @@ export class UserService {
         this._currentUser.next({
           name:user.name,
           email:user.email,
-          password:user.password
+          rank:user.rank
         })
         resolve(user);
       })
