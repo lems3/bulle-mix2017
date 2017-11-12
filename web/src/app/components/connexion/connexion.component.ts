@@ -27,6 +27,8 @@ export class ConnexionComponent implements OnInit {
     this.userService.login(this.email,this.password)
     .then((result)=>{
       if(result){
+        this.email = "";
+        this.password = "";
         this.router.navigate(['achat']);
       }
     })

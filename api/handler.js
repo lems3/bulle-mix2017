@@ -49,7 +49,7 @@ module.exports.inscription = (event, context, callback) => {
           console.log(error);
           callback(null,response(500,{status:'error',message:'error retrieving user'}))
         } else {
-          callback(null,response(200,data))
+          callback(null,response(200,data.Item))
         }
       })
     }
@@ -75,7 +75,7 @@ module.exports.connexion = (event, context, callback) => {
       console.log(error);
       callback(null,response(500,{status:'error',message:'error retrieving user'}))
     } else {
-      callback(null,response(200,data))
+      callback(null,response(200,data.Item))
     }
   })
 }

@@ -27,6 +27,7 @@ export class UserService {
       .toPromise()
       .then((result)=>{
         let user = result.json();
+        console.log(result);
         this._currentUser.next({
           name:user.name,
           email:user.email,

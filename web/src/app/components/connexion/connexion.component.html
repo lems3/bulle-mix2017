@@ -1,5 +1,5 @@
 <div *ngIf="user else loggedout">
-  <p>Bonjour {{ user.name }}</p>
+  <p>Bonjour {{ user!.name }}</p>
   <button (click)="logout()">Déconnexion</button>
 </div>
 <ng-template #loggedout>
