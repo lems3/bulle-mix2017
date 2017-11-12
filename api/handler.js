@@ -87,25 +87,45 @@ module.exports.achat = (event, context, callback) => {
   let body = JSON.parse(event.body);
 
   var params = {
-    TableName: 'bulle-user',
-    Key:{
-      email:body.email
-    },
-    AttributeUpdates:{
-      'bulles':{
-        Action: 'ADD',
-        Value: body.nombre
-      }
-    },
-    ReturnValues:"UPDATED_NEW"
-  }
-
-  dynamo.update(params,(error,data) => {
+    TableName : 'bulle-user',
+    AttributesToGet: [
+      'name',
+      'email',
+      'rank',
+      'bulles'
+    ],
+    Key: {
+      email: body.email
+    }
+  };
+  dynamo.get(params,(error,data)=>{
     if(error){
       console.log(error);
-      callback(null,response(500,{message:"Error while adding the bulles"}))
+      callback(null,response(500,{status:'error',message:'error retrieving user'}))
     } else {
-      callback(null,response(200,data.Item));
+      params = {
+        TableName: 'bulle-user',
+        Key:{
+          email:body.email
+        },
+        AttributeUpdates:{
+          'bulles':{
+            Action: 'PUT',
+            Value: body.nombre*1+data.Item.bulles*1
+          }
+        },
+        ReturnValues:"UPDATED_NEW"
+      }
+    
+      dynamo.update(params,(error,data) => {
+        if(error){
+          console.log(error);
+          callback(null,response(500,{message:"Error while adding the bulles"}))
+        } else {
+          callback(null,response(200,data.Item));
+        }
+      })      
     }
   })
+
 }
