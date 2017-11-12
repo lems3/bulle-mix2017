@@ -83,6 +83,7 @@ resources:
               Action:
                 - dynamodb:GetItem
                 - dynamodb:PutItem
+                - dynamodb:UpdateItem
               Resource: arn:aws:dynamodb:*:*:table/bulle-user
         Roles:
           - Ref: IamRoleLambdaExecution
