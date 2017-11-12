@@ -1,3 +1,9 @@
-<p>
-  connexion works!
-</p>
+<div *ngIf="user else loggedout">
+  <p>Bonjour {{ user.name }}</p>
+  <button (click)="logout()">Déconnexion</button>
+</div>
+<ng-template #loggedout>
+  <input type="email" placeholder="courriel" [(ngModel)]="email">
+  <input type="password" placeholder="mot de passe" [(ngModel)]="password">
+  <button (click)="login()">Connexion</button>
+</ng-template>

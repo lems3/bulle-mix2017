@@ -16,7 +16,39 @@ export class UserService {
     
   }
 
-  register(name: string, email: string, password: string){
+  login(email:string,password:string):Promise<User|any>{
+    return new Promise((resolve,reject)=>{
+      this.http.post(
+        'https://2q6hctzngk.execute-api.us-east-1.amazonaws.com/prod/connexion',
+        {
+          email:email,
+          password:password
+        })
+      .toPromise()
+      .then((result)=>{
+        let user = result.json();
+        this._currentUser.next({
+          name:user.name,
+          email:user.email,
+          rank:user.rank
+        })
+        resolve(user);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      })
+    });
+  }
+
+  logout():Promise<any>{
+    return new Promise((resolve,reject) => {
+      this._currentUser.next(null);
+      resolve(null);
+    })
+  }
+
+  register(name: string, email: string, password: string):Promise<User|any>{
     return new Promise((resolve,reject) => {
       this.http.post(
         'https://2q6hctzngk.execute-api.us-east-1.amazonaws.com/prod/inscription',

@@ -27,13 +27,22 @@ provider:
 
 
 functions:
-  hello:
+  inscription:
     handler: handler.inscription
     memorySize: 128
     timeout: 30
     events:
     - http:
         path: inscription
+        method: post
+        cors: true
+  connexion:
+    handler: handler.connexion
+    memorySize: 128
+    timeout: 30
+    events:
+    - http:
+        path: connexion
         method: post
         cors: true
 

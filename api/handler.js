@@ -30,7 +30,7 @@ module.exports.inscription = (event, context, callback) => {
   dynamo.put(params,(error, data) => {
     if(error){
       console.log(error);
-      callback(null,response(200,{status:'error',message:'error creating user'}))
+      callback(null,response(500,{status:'error',message:'error creating user'}))
     }
     else{
       var params = {
@@ -44,7 +44,38 @@ module.exports.inscription = (event, context, callback) => {
           email: body.email
         }
       };
-      callback(null,response(200,{status:'ok',message:'ok'}))
+      dynamo.get(params,(error,data)=>{
+        if(error){
+          console.log(error);
+          callback(null,response(500,{status:'error',message:'error retrieving user'}))
+        } else {
+          callback(null,response(200,data))
+        }
+      })
+    }
+  })
+}
+
+module.exports.connexion = (event, context, callback) => {
+  let body = JSON.parse(event.body);
+
+  var params = {
+    TableName : 'bulle-user',
+    AttributesToGet: [
+      'name',
+      'email',
+      'rank'
+    ],
+    Key: {
+      email: body.email
+    }
+  };
+  dynamo.get(params,(error,data)=>{
+    if(error){
+      console.log(error);
+      callback(null,response(500,{status:'error',message:'error retrieving user'}))
+    } else {
+      callback(null,response(200,data))
     }
   })
 }
