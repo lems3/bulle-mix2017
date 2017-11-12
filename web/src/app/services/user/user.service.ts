@@ -72,24 +72,23 @@ export class UserService {
   
   achat(nombre):Promise<any>{
     return new Promise((resolve,reject)=>{
-      this.currentUser.subscribe((user)=>{
-        this.http.post(
-          'https://2q6hctzngk.execute-api.us-east-1.amazonaws.com/prod/achat',
-          {
-            email:user.email,
-            nombre:nombre
-          }
-        )
-        .toPromise()
-        .then((result)=>{
-          let user = result.json();
-          this.emitUser(user);
-          resolve(true)
-        })
-        .catch((error) => {
-          console.log(error);
-          reject(false);
-        })
+      let user = this._currentUser.getValue();
+      this.http.post(
+        'https://2q6hctzngk.execute-api.us-east-1.amazonaws.com/prod/achat',
+        {
+          email:user.email,
+          nombre:nombre
+        }
+      )
+      .toPromise()
+      .then((result)=>{
+        let user = result.json();
+        this.emitUser(user);
+        resolve(true)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(false);
       })
     })
   }

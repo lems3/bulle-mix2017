@@ -88,50 +88,16 @@ module.exports.achat = (event, context, callback) => {
 
   var params = {
     TableName: 'bulle-user',
-    AttributesToGet: [
-      'email',
-      'bulles'
-    ],
     Key:{
       email:body.email
+    },
+    AttributeUpdates:{
+      'bulles':{
+        Action: ADD,
+        Value: body.nombre
+      }
     }
   }
 
-  dynamo.get(params,(error,data)=>{
-    if(error){
-      console.log(error)
-      callback(null,response(500,{message:"Error while retrieving the user"}))
-    } else {
-      let user = data.Item;
-      params = {
-        TableName: 'bulle-user',
-        Item: {
-          email:user.email,
-          bulles:user.bulles+body.nombre
-        }
-      }
-      dynamo.put(params,(error,data)=>{
-        var params = {
-          TableName : 'bulle-user',
-          AttributesToGet: [
-            'name',
-            'email',
-            'rank',
-            'bulles'
-          ],
-          Key: {
-            email: body.email
-          }
-        };
-        dynamo.get(params,(error,data)=>{
-          if(error){
-            console.log(error);
-            callback(null,response(500,{status:'error',message:'error retrieving user'}))
-          } else {
-            callback(null,response(200,data.Item))
-          }
-        })
-      })
-    }
-  })
+
 }
