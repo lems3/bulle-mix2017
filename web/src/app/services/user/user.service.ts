@@ -25,13 +25,9 @@ export class UserService {
       .toPromise()
       .then((result)=>{
         let user = result.json();
-        console.log(result);
-        this._currentUser.next({
-          name:user.name,
-          email:user.email,
-          rank:user.rank,
-          bulles:user.bulles 
-        })
+        if(!user.bulles)
+          user.bulles = 0;
+        this.emitUser(user);
         resolve(user);
       })
       .catch((error) => {
@@ -61,12 +57,9 @@ export class UserService {
       .toPromise()
       .then((result) => {
         let user = result.json();
-        this._currentUser.next({
-          name:user.name,
-          email:user.email,
-          rank:user.rank,
-          bulles:user.bulles
-        })
+        if(!user.bulles)
+        user.bulles = 0;
+        this.emitUser(user);
         resolve(user);
       })
       .catch((error) => {
@@ -74,6 +67,40 @@ export class UserService {
         reject(error);
       })
     });
+  }
+
+  
+  achat(nombre):Promise<any>{
+    return new Promise((resolve,reject)=>{
+      this.currentUser.subscribe((user)=>{
+        this.http.post(
+          'https://2q6hctzngk.execute-api.us-east-1.amazonaws.com/prod/achat',
+          {
+            email:user.email,
+            nombre:nombre
+          }
+        )
+        .toPromise()
+        .then((result)=>{
+          let user = result.json();
+          this.emitUser(user);
+          resolve(true)
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(false);
+        })
+      })
+    })
+  }
+  
+  private emitUser(user){
+    this._currentUser.next({
+        name:user.name,
+        email:user.email,
+        rank:user.rank,
+        bulles:user.bulles
+      })
   }
 
 }

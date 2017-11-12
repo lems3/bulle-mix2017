@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AchatBulleComponent implements OnInit {
 
-  constructor() { }
+  nombre: number;
+  carte: string;
+
+  constructor(
+    private userService : UserService
+  ) { }
 
   ngOnInit() {
+  }
+
+  submit(){
+    this.userService.achat(this.nombre)
+    .then((success)=>{
+      this.nombre = null;
+      this.carte = "";
+    })
+    .catch((error)=>{
+      alert("Erreur lors de la transaction");
+    })
+    return false;
   }
 
 }

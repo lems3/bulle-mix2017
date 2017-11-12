@@ -16,7 +16,7 @@ export class AuthGuardService {
         console.log(user);
         return true;
       } else {
-        this.router.navigate['/'];
+        this.router.navigate(['/']);
         console.log("pas correct");
         return false;
       }
@@ -38,7 +38,7 @@ export class BenevoleAuthGuardService {
         console.log(user);
         return true;
       } else {
-        this.router.navigate['/'];
+        this.router.navigate(['/']);
         console.log("pas correct");
         return false;
       }
@@ -60,7 +60,7 @@ export class AdminAuthGuardService {
         console.log(user);
         return true;
       } else {
-        this.router.navigate['/'];
+        this.router.navigate(['/']);
         console.log("pas correct");
         return false;
       }
@@ -82,7 +82,7 @@ export class GuestAuthGuardService {
         console.log("user: "+user);
         return true;
       } else {
-        this.router.navigate['/'];
+        this.router.navigate(['/']);
         console.log("pas correct");
         return false;
       }

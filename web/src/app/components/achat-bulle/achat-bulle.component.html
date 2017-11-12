@@ -1,3 +1,21 @@
-<p>
-  achat-bulle works!
-</p>
+<form (submit)="submit()">
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+      <div class="field">
+        <label class="label">Nombre de bulles</label>
+        <div class="control">
+          <input type="text" class="input" [(ngModel)]="nombre" name="nombre">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Numéro de carte de crédit</label>
+        <div class="control">
+          <input type="text" class="input" [(ngModel)]="carte" name="carte">
+        </div>
+      </div>
+    </div>
+    <div class="control">
+        <button class="button is-primary">Acheter</button>
+      </div>
+  </div>
+</form>
