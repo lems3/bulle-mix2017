@@ -2,9 +2,16 @@
   <div class="navbar-item">
     <a routerLink="/" class="">Accueil</a>
   </div>
-  <div class="navbar-item">
-    <a routerLink="/inscription" class="">Inscription</a>
-  </div> 
+  <ng-template [ngIf]="!user">
+    <div class="navbar-item">
+      <a routerLink="/inscription" class="">Inscription</a>
+    </div> 
+  </ng-template>
+  <ng-template [ngIf]="user">
+    <div class="navbar-item">
+      <a routerLink="/achat">Achat de bulles</a>
+    </div>
+  </ng-template>
   <div class="navbar-item">
     <app-connexion></app-connexion>
   </div> 
