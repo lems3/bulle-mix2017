@@ -122,7 +122,8 @@ module.exports.achat = (event, context, callback) => {
           console.log(error);
           callback(null,response(500,{message:"Error while adding the bulles"}))
         } else {
-          callback(null,response(200,data.Item));
+          console.log(data);
+          callback(null,response(200,data.Attributes));
         }
       })      
     }

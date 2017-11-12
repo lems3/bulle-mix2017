@@ -82,7 +82,8 @@ export class UserService {
       )
       .toPromise()
       .then((result)=>{
-        let user = result.json();
+        let bulles = result.json();
+        user.bulles = bulles.bulles;
         this.emitUser(user);
         resolve(true)
       })
