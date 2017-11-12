@@ -93,11 +93,19 @@ module.exports.achat = (event, context, callback) => {
     },
     AttributeUpdates:{
       'bulles':{
-        Action: ADD,
+        Action: 'ADD',
         Value: body.nombre
       }
-    }
+    },
+    ReturnValues:"UPDATED_NEW"
   }
 
-
+  dynamo.update(params,(error,data) => {
+    if(error){
+      console.log(error);
+      callback(null,response(500,{message:"Error while adding the bulles"}))
+    } else {
+      callback(null,response(200,data.Item));
+    }
+  })
 }
